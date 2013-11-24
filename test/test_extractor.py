@@ -12,15 +12,15 @@ SIMPLE_IMPORT_STATEMENTS = \
      ("'import justastring'", []),
      ("import __future__", []),
      ("import __future__ as __past__", []),
-     ("import __future__, re", [(1, 're', None)]),
-     ("import re", [(1, 're', None)]),
-     ("import time", [(1, 'time', None)]),
-     ("import numpy as np", [(1, 'numpy', 'np')]),
-     ("import sys, os, copy", [(1, 'sys', None),
-                               (1, 'os', None),
-                               (1, 'copy', None)]),
-     ("import time as tme, copy as cpy", [(1, 'time', 'tme'),
-                                          (1, 'copy', 'cpy')])
+     ("import __future__, re", [(1, 're', None, None)]),
+     ("import re", [(1, 're', None, None)]),
+     ("import time", [(1, 'time', None, None)]),
+     ("import numpy as np", [(1, 'numpy', None, 'np')]),
+     ("import sys, os, copy", [(1, 'sys', None, None),
+                               (1, 'os', None, None),
+                               (1, 'copy', None, None)]),
+     ("import time as tme, copy as cpy", [(1, 'time', None, 'tme'),
+                                          (1, 'copy', None, 'cpy')])
      ]
 
 
@@ -36,3 +36,4 @@ class ExtractorTest(unittest.TestCase):
             source = f.read()
         imports = extract_imports(source)
         self.assertEqual(imports, simple_imports.EXPECTED)
+

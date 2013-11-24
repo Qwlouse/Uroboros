@@ -22,13 +22,13 @@ import hashlib,\
 
 EXPECTED = [
     #(10, '__future__', None) # future imports should be ignored
-    (12, 'sys', None),
-    (13, 'os', None),
-    (13, 'copy', None),
-    (13, 'time', None),
-    (15, 'numpy', 'np'),
-    (17, 'time', 'tme'),
-    (17, 'copy', 'cpy'),
-    (19, 'hashlib', None),
-    (19, 'math', 'm')          # the line containing the import counts
+    (12, 'sys', None, None),
+    (13, 'os', None, None),
+    (13, 'copy', None, None),
+    (13, 'time', None, None),
+    (15, 'numpy', None, 'np'),
+    (17, 'time', None, 'tme'),
+    (17, 'copy', None, 'cpy'),
+    (19, 'hashlib', None, None),
+    (19, 'math', None, 'm')          # the line containing the import counts
 ]
