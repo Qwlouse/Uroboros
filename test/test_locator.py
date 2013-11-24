@@ -1,10 +1,12 @@
 #!/usr/bin/python
 # coding=utf-8
 from __future__ import division, print_function, unicode_literals
+import os
 import unittest
 
 from locator import locate_module
-from test.utils import ensure_uncompiled_source
+from . import utils
+
 
 
 BUILTIN_MODULES = ['array', 'ast', 'binascii', 'bisect', 'codecs',
@@ -22,19 +24,25 @@ BUILTIN_MODULES_WITH_UNDERSCORES = ['__main__', '_ast', '_bisect', '_codecs',
                                     '_weakref']
 
 THIRD_PARTY_MODULES = [
-    ("unittest", ensure_uncompiled_source(unittest.__file__)),
+    ("unittest", utils.ensure_uncompiled_source(unittest.__file__)),
+]
+
+LOCAL_MODULES = [
+    (('utils', os.path.dirname(__file__)),
+     (utils.ensure_uncompiled_source(utils.__file__), True))
 ]
 
 
 class LocatorTest(unittest.TestCase):
     def test_locate_builtin_modules(self):
         for module_name in BUILTIN_MODULES:
-            self.assertEqual(locate_module(module_name), '__builtin__')
+            self.assertEqual(locate_module(module_name), ('__builtin__', False))
 
     def test_locate_builtin_modules_that_start_with_underscore(self):
         for module_name in BUILTIN_MODULES_WITH_UNDERSCORES:
-            self.assertEqual(locate_module(module_name), '__builtin__')
+            self.assertEqual(locate_module(module_name), ('__builtin__', False))
 
     def test_locate_3rd_party_modules_returns_filename(self):
         for modname, filename in THIRD_PARTY_MODULES:
-            self.assertEqual(locate_module(modname), filename)
+            self.assertEqual(locate_module(modname), (filename, False))
+

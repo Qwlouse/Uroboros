@@ -29,3 +29,14 @@ EXPECTED = [
     (17, None, 'hashlib', None),
     (17, None, 'math', 'm')          # the line containing the import counts
 ]
+
+EXPECTED_LOCATIONS = [
+    (12, 'sys', '__builtin__'),
+    (13, 'os', '__builtin__'),
+    (13, 'copy', '__builtin__'),
+    (13, 'time', '__builtin__'),
+    (15, 'time', '__builtin__'),
+    (15, 'copy', '__builtin__'),
+    (17, 'hashlib', '__builtin__'),
+    (17, 'math', '__builtin__')
+]

@@ -11,13 +11,13 @@ BUILTINS = BUILTINS.union(set(name.strip('_') for name in BUILTINS
                               if not name.startswith('__')))
 
 
-def locate_module(module_name):
+def locate_module(module_name, path=''):
     if module_name in BUILTINS:
-        return '__builtin__'
+        return '__builtin__', False
 
     f, filename, (suffix, mode, type) = imp.find_module(module_name)
 
     if os.path.isdir(filename):
         filename = os.path.join(filename, '__init__.py')
 
-    return filename
+    return filename, False
