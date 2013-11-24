@@ -12,8 +12,6 @@ import __future__
 import sys
 import os, copy, time
 
-import numpy as np
-
 import time as tme, copy as cpy
 
 import hashlib,\
@@ -26,9 +24,8 @@ EXPECTED = [
     (13, None, 'os', None),
     (13, None, 'copy', None),
     (13, None, 'time', None),
-    (15, None, 'numpy', 'np'),
-    (17, None, 'time', 'tme'),
-    (17, None, 'copy', 'cpy'),
-    (19, None, 'hashlib', None),
-    (19, None, 'math', 'm')          # the line containing the import counts
+    (15, None, 'time', 'tme'),
+    (15, None, 'copy', 'cpy'),
+    (17, None, 'hashlib', None),
+    (17, None, 'math', 'm')          # the line containing the import counts
 ]
