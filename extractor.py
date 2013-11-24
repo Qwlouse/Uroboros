@@ -18,7 +18,7 @@ class ImportExtractor(ast.NodeVisitor):
 
     def visit_ImportFrom(self, node):
         lineno = node.lineno
-        module = node.module
+        module = '.' * node.level + (node.module or '')
         if module != '__future__':
             # ignore import __future__
             #col_offset = node.col_offset
