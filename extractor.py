@@ -9,7 +9,10 @@ class ImportExtractor(ast.NodeVisitor):
         self.imports = []
 
     def visit_Import(self, node):
-        self.imports.extend(a.name for a in node.names)
+        lineno = node.lineno
+        #col_offset = node.col_offset
+        import_aliases = [(lineno, a.name, a.asname) for a in node.names]
+        self.imports.extend(import_aliases)
         super(ImportExtractor, self).generic_visit(node)
 
 
