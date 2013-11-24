@@ -25,7 +25,10 @@ SIMPLE_IMPORT_STATEMENTS = \
 
 
 FROM_IMPORT_STATEMENTS = \
-    [("from copy import deepcopy", [(1, 'copy', 'deepcopy', None)]),
+    [("from __future__ import division", []),
+     ("from __future__ import division, print_function", []),
+     ("from __future__ import division as div", []),
+     ("from copy import deepcopy", [(1, 'copy', 'deepcopy', None)]),
      ("from copy import copy, deepcopy", [(1, 'copy', 'copy', None),
                                           (1, 'copy', 'deepcopy', None)]),
      ("from os import path as p", [(1, 'os', 'path', 'p')]),
