@@ -23,5 +23,5 @@ EXPECTED = [
     (11, 'os', 'path', 'pth'),
     (12, 'os.path', 'join', 'j'),
     (13, 'os.path', 'isdir', 'isd'),
-    (13, 'os.path', 'exists', 'ex'),
+    (13, 'os.path', 'exists', 'ex')
 ]
