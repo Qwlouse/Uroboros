@@ -54,7 +54,7 @@ class ExtractorTest(unittest.TestCase):
 
     def test_extract_simple_imports_from_file(self):
         from .testfiles import simple_imports
-        with open(simple_imports.__file__, 'r') as f:
+        with open('testfiles/simple_imports.py', 'rb') as f:
             source = f.read()
         imports = extract_imports(source)
         self.assertEqual(imports, simple_imports.EXPECTED)
