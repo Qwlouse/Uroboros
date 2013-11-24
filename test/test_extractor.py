@@ -13,15 +13,15 @@ SIMPLE_IMPORT_STATEMENTS = \
      ("import __future__", []),
      ("import __future__ as __past__", []),
 
-     ("import __future__, re", [(1, 're', None, None)]),
-     ("import re",             [(1, 're', None, None)]),
-     ("import time",           [(1, 'time', None, None)]),
-     ("import numpy as np",    [(1, 'numpy', None, 'np')]),
-     ("import sys, os, copy",  [(1, 'sys', None, None),
-                                (1, 'os', None, None),
-                                (1, 'copy', None, None)]),
-     ("import time as tme, copy as cpy", [(1, 'time', None, 'tme'),
-                                          (1, 'copy', None, 'cpy')])
+     ("import __future__, re", [(1, None, 're', None)]),
+     ("import re",             [(1, None, 're', None)]),
+     ("import time",           [(1, None, 'time', None)]),
+     ("import numpy as np",    [(1, None, 'numpy', 'np')]),
+     ("import sys, os, copy",  [(1, None, 'sys', None),
+                                (1, None, 'os', None),
+                                (1, None, 'copy', None)]),
+     ("import time as tme, copy as cpy", [(1, None, 'time', 'tme'),
+                                          (1, None, 'copy', 'cpy')])
      ]
 
 
