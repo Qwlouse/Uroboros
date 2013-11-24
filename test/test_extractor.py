@@ -6,27 +6,27 @@ import unittest
 
 from extractor import extract_imports
 
+SIMPLE_IMPORT_STATEMENTS = \
+    [("", []),
+     ("#import justacomment", []),
+     ("'import justastring'", []),
+     ("import __future__", []),
+     ("import __future__ as __past__", []),
+     ("import __future__, re", [(1, 're', None)]),
+     ("import re", [(1, 're', None)]),
+     ("import time", [(1, 'time', None)]),
+     ("import numpy as np", [(1, 'numpy', 'np')]),
+     ("import sys, os, copy", [(1, 'sys', None),
+                               (1, 'os', None),
+                               (1, 'copy', None)]),
+     ("import time as tme, copy as cpy", [(1, 'time', 'tme'),
+                                          (1, 'copy', 'cpy')])
+     ]
+
 
 class ExtractorTest(unittest.TestCase):
     def test_extract_simple_imports(self):
-        statements = [
-            ("", []),
-            ("#import justacomment", []),
-            ("'import justastring'", []),
-            ("import __future__", []),  # ignore
-            ("import __future__ as __past__", []),  # ignore
-            ("import __future__, re", [(1, 're', None)]),
-            ("import re", [(1, 're', None)]),
-            ("import time", [(1, 'time', None)]),
-            ("import numpy as np", [(1, 'numpy', 'np')]),
-            ("import sys, os, copy", [(1, 'sys', None),
-                                      (1, 'os', None),
-                                      (1, 'copy', None)]),
-            ("import time as tme, copy as cpy", [(1, 'time', 'tme'),
-                                                 (1, 'copy', 'cpy')])
-
-        ]
-        for stmt, modules in statements:
+        for stmt, modules in SIMPLE_IMPORT_STATEMENTS:
             imports = extract_imports(stmt)
             self.assertEqual(imports, modules)
 
