@@ -16,6 +16,18 @@ class ImportExtractor(ast.NodeVisitor):
         self.imports.extend(import_aliases)
         super(ImportExtractor, self).generic_visit(node)
 
+    def visit_ImportFrom(self, node):
+        lineno = node.lineno
+        module = node.module
+        if module != '__future__':
+            # ignore import __future__
+            #col_offset = node.col_offset
+            import_aliases = [(lineno, module, a.name, a.asname)
+                              for a in node.names]
+            self.imports.extend(import_aliases)
+
+        super(ImportExtractor, self).generic_visit(node)
+
 
 def extract_imports(source):
     tree = ast.parse(source)

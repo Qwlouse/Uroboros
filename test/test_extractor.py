@@ -24,6 +24,14 @@ SIMPLE_IMPORT_STATEMENTS = \
      ]
 
 
+FROM_IMPORT_STATEMENTS = \
+    [("from copy import deepcopy", [(1, 'copy', 'deepcopy', None)]),
+     ("from copy import copy, deepcopy", [(1, 'copy', 'copy', None),
+                                          (1, 'copy', 'deepcopy', None)]),
+     ("from os import path as p", [(1, 'os', 'path', 'p')]),
+     ]
+
+
 class ExtractorTest(unittest.TestCase):
     def test_extract_simple_imports(self):
         for stmt, modules in SIMPLE_IMPORT_STATEMENTS:
@@ -36,4 +44,9 @@ class ExtractorTest(unittest.TestCase):
             source = f.read()
         imports = extract_imports(source)
         self.assertEqual(imports, simple_imports.EXPECTED)
+
+    def test_extract_from_imports(self):
+        for stmt, modules in FROM_IMPORT_STATEMENTS:
+            imports = extract_imports(stmt)
+            self.assertEqual(imports, modules)
 
