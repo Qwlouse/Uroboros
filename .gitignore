@@ -1,0 +1,12 @@
+# compiled Python files or object files
+*.py[co]
+
+# python cache dirs
+__pycache__
+
+# Idea project
+.idea
+
+# Gedit temporary files
+*~
+
