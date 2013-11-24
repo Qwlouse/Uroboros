@@ -4,14 +4,8 @@ from __future__ import division, print_function, unicode_literals
 import unittest
 
 from locator import locate_module
+from test.utils import ensure_uncompiled_source
 
-
-def ensure_uncompiled_source(filename):
-    if filename.endswith('.pyc') or filename.endswith('.pyo'):
-        filename = filename[:-1]
-
-    #assert filename.endswith('py'), "error: %s" % filename
-    return filename
 
 BUILTIN_MODULES = ['array', 'ast', 'binascii', 'bisect', 'codecs',
                    'collections', 'errno', 'fcntl', 'functools', 'gc', 'grp',
