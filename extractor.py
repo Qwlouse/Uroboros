@@ -11,7 +11,8 @@ class ImportExtractor(ast.NodeVisitor):
     def visit_Import(self, node):
         lineno = node.lineno
         #col_offset = node.col_offset
-        import_aliases = [(lineno, a.name, a.asname) for a in node.names]
+        import_aliases = [(lineno, a.name, a.asname) for a in node.names
+                          if a.name != '__future__']  # ignore import __future__
         self.imports.extend(import_aliases)
         super(ImportExtractor, self).generic_visit(node)
 

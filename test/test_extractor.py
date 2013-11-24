@@ -13,6 +13,9 @@ class ExtractorTest(unittest.TestCase):
             ("", []),
             ("#import justacomment", []),
             ("'import justastring'", []),
+            ("import __future__", []),  # ignore
+            ("import __future__ as __past__", []),  # ignore
+            ("import __future__, re", [(1, 're', None)]),
             ("import re", [(1, 're', None)]),
             ("import time", [(1, 'time', None)]),
             ("import numpy as np", [(1, 'numpy', 'np')]),
