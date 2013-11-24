@@ -64,3 +64,12 @@ class ExtractorTest(unittest.TestCase):
             imports = extract_imports(stmt)
             self.assertEqual(imports, modules)
 
+    def test_extract_from_imports_from_file(self):
+        from .testfiles import from_imports
+        with open('testfiles/from_imports.py', 'rb') as f:
+            source = f.read()
+        imports = extract_imports(source)
+        self.assertEqual(imports, from_imports.EXPECTED)
+
+
+
