@@ -6,7 +6,7 @@ import unittest
 
 from locator import locate_module
 from . import utils
-
+from .testfiles import simple_imports, from_imports
 
 
 BUILTIN_MODULES = ['array', 'ast', 'binascii', 'bisect', 'codecs',
@@ -27,9 +27,15 @@ THIRD_PARTY_MODULES = [
     ("unittest", utils.ensure_uncompiled_source(unittest.__file__)),
 ]
 
+THIS_PATH = os.path.dirname(__file__)
+
 LOCAL_MODULES = [
-    (('utils', os.path.dirname(__file__)),
-     (utils.ensure_uncompiled_source(utils.__file__), True))
+    (('utils', THIS_PATH),
+     (utils.ensure_uncompiled_source(utils.__file__), True)),
+    (('testfiles.simple_imports', THIS_PATH),
+     (utils.ensure_uncompiled_source(simple_imports.__file__), True)),
+    (('testfiles.from_imports', THIS_PATH),
+     (utils.ensure_uncompiled_source(from_imports.__file__), True)),
 ]
 
 
@@ -45,4 +51,8 @@ class LocatorTest(unittest.TestCase):
     def test_locate_3rd_party_modules_returns_filename(self):
         for modname, filename in THIRD_PARTY_MODULES:
             self.assertEqual(locate_module(modname), (filename, False))
+
+    def test_locate_local_files(self):
+        for (modname, path), (location, local) in LOCAL_MODULES:
+            self.assertEqual(locate_module(modname, path), (location, local))
 
