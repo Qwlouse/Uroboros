@@ -5,8 +5,8 @@ import os
 import unittest
 
 from locator import locate_module
-from . import utils
-from .testfiles import simple_imports, from_imports
+from test import utils
+from test.testfiles import simple_imports, from_imports
 
 
 BUILTIN_MODULES = ['array', 'ast', 'binascii', 'bisect', 'codecs',
@@ -42,15 +42,18 @@ LOCAL_MODULES = [
 class LocatorTest(unittest.TestCase):
     def test_locate_builtin_modules(self):
         for module_name in BUILTIN_MODULES:
-            self.assertEqual(locate_module(module_name), ('__builtin__', False))
+            self.assertEqual(locate_module(module_name, THIS_PATH),
+                             ('__builtin__', False))
 
     def test_locate_builtin_modules_that_start_with_underscore(self):
         for module_name in BUILTIN_MODULES_WITH_UNDERSCORES:
-            self.assertEqual(locate_module(module_name), ('__builtin__', False))
+            self.assertEqual(locate_module(module_name, THIS_PATH),
+                             ('__builtin__', False))
 
     def test_locate_3rd_party_modules_returns_filename(self):
         for modname, filename in THIRD_PARTY_MODULES:
-            self.assertEqual(locate_module(modname), (filename, False))
+            self.assertEqual(locate_module(modname, THIS_PATH),
+                             (filename, False))
 
     def test_locate_local_files(self):
         for (modname, path), (location, local) in LOCAL_MODULES:

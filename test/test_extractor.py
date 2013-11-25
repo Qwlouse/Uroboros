@@ -53,7 +53,7 @@ class ExtractorTest(unittest.TestCase):
             self.assertEqual(imports, modules)
 
     def test_extract_simple_imports_from_file(self):
-        from .testfiles import simple_imports
+        from test.testfiles import simple_imports
         with open('testfiles/simple_imports.py', 'rb') as f:
             source = f.read()
         imports = extract_imports(source)
@@ -65,16 +65,15 @@ class ExtractorTest(unittest.TestCase):
             self.assertEqual(imports, modules)
 
     def test_extract_from_imports_from_file(self):
-        from .testfiles import from_imports
+        from test.testfiles import from_imports
         with open('testfiles/from_imports.py', 'rb') as f:
             source = f.read()
         imports = extract_imports(source)
         self.assertEqual(imports, from_imports.EXPECTED)
 
     def test_extract_relative_imports_from_file(self):
-        from .testfiles import relative_imports
+        from test.testfiles import relative_imports
         with open('testfiles/relative_imports.py', 'rb') as f:
             source = f.read()
         imports = extract_imports(source)
         self.assertEqual(imports, relative_imports.EXPECTED)
-

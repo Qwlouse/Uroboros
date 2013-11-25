@@ -22,10 +22,11 @@ def locate_module(module_name, path=''):
         return '__builtin__', False
 
     try:
-        f, filename, (suffix, mode, type) = imp.find_module(module_name)
+        f, filename, _ = imp.find_module(module_name)
         if f:
             f.close()
-        return _postprocess_location(filename), False
+        local = filename.startswith(path)
+        return _postprocess_location(filename), local
     except ImportError:
         pass
 
