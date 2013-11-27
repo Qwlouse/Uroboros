@@ -28,6 +28,10 @@ def locate_module(module_name, path=''):
         filename = os.path.abspath(os.path.join(path, modparts[0] + '.py'))
         if os.path.exists(filename):
             return _postprocess_location(filename), True
+        filename = os.path.abspath(os.path.join(path, modparts[0],
+                                                '__init__.py'))
+        if os.path.exists(filename):
+            return _postprocess_location(filename), True
 
     # step 3: local packages
     else:
@@ -35,9 +39,8 @@ def locate_module(module_name, path=''):
         found = True
         for modpart in modparts[:-1]:
             dirname = os.path.join(current_dir, modpart)
-            if os.path.exists(dirname) and\
-                os.path.isdir(dirname) and\
-                os.path.exists(os.path.join(dirname, '__init__.py')):
+            if os.path.exists(dirname) and os.path.isdir(dirname) and\
+                    os.path.exists(os.path.join(dirname, '__init__.py')):
                 current_dir = dirname
             else:
                 found = False

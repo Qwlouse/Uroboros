@@ -5,7 +5,7 @@ import os
 import unittest
 
 from locator import locate_module
-from test import utils
+from test import utils, testfiles
 from test.testfiles import simple_imports, from_imports
 
 
@@ -32,6 +32,8 @@ THIS_PATH = os.path.dirname(__file__)
 LOCAL_MODULES = [
     (('utils', THIS_PATH),
      (utils.ensure_uncompiled_source(utils.__file__), True)),
+    (('testfiles', THIS_PATH),
+     (utils.ensure_uncompiled_source(testfiles.__file__), True)),
     (('testfiles.simple_imports', THIS_PATH),
      (utils.ensure_uncompiled_source(simple_imports.__file__), True)),
     (('testfiles.from_imports', THIS_PATH),
