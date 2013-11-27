@@ -6,7 +6,7 @@ import unittest
 
 from locator import locate_module
 from test import utils, testfiles
-from test.testfiles import simple_imports, from_imports
+from test.testfiles import simple_imports, from_imports, subpackage
 
 
 BUILTIN_MODULES = ['array', 'ast', 'binascii', 'bisect', 'codecs',
@@ -38,6 +38,8 @@ LOCAL_MODULES = [
      (utils.ensure_uncompiled_source(simple_imports.__file__), True)),
     (('testfiles.from_imports', THIS_PATH),
      (utils.ensure_uncompiled_source(from_imports.__file__), True)),
+    (('testfiles.subpackage', THIS_PATH),
+     (utils.ensure_uncompiled_source(subpackage.__file__), True)),
 ]
 
 
