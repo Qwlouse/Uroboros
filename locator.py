@@ -18,15 +18,42 @@ def _postprocess_location(filename):
 
 
 def locate_module(module_name, path=''):
+    # step 1: Builtins
     if module_name in BUILTINS:
         return '__builtin__', False
+
+    # step 2: local files
+    modparts = module_name.split('.')
+    if len(modparts) == 1:
+        filename = os.path.abspath(os.path.join(path, modparts[0] + '.py'))
+        if os.path.exists(filename):
+            return _postprocess_location(filename), True
+
+    # step 3: local packages
+    else:
+        current_dir = os.path.abspath(path)
+        found = True
+        for modpart in modparts[:-1]:
+            dirname = os.path.join(current_dir, modpart)
+            if os.path.exists(dirname) and\
+                os.path.isdir(dirname) and\
+                os.path.exists(os.path.join(dirname, '__init__.py')):
+                current_dir = dirname
+            else:
+                found = False
+                break
+
+        if found:
+            filename = os.path.join(current_dir, modparts[-1] + '.py')
+            if os.path.exists(filename):
+                return _postprocess_location(filename), True
 
     try:
         f, filename, _ = imp.find_module(module_name)
         if f:
             f.close()
-        local = filename.startswith(path)
-        return _postprocess_location(filename), local
+        #local = filename.startswith(path)
+        return _postprocess_location(filename), False
     except ImportError:
         pass
 
