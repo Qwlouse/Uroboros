@@ -5,22 +5,32 @@ import os
 import unittest
 
 from locator import locate_module
-from test import utils, testfiles
-from test.testfiles import simple_imports, from_imports, subpackage
+from test import utils
+from test.testfiles import simple_imports, from_imports#, subpackage
+
+#################
+import testfiles                      # testfiles/__init__.py
+#import test.testfiles as testfiles    # testfiles/__init__.py
+#from test import testfiles            # testfiles/__init__.py
+
+#import test.testfiles.subpackage as subpackage  # testfiles/subpackage/__init__.py
+from test.testfiles import subpackage            # testfiles/subpackage/__init__.py
 
 
 BUILTIN_MODULES = ['array', 'ast', 'binascii', 'bisect', 'codecs',
                    'collections', 'errno', 'fcntl', 'functools', 'gc', 'grp',
-                   'hashlib', 'imp', 'itertools', 'locale', 'marshal', 'math',
+                   'imp', 'itertools', 'locale', 'marshal', 'math',
                    'operator', 'posix', 'pwd', 'random', 'select', 'signal',
-                   'socket', 'spwd', 'sre', 'ssl', 'struct', 'symtable', 'sys',
+                   'socket', 'spwd', 'sre', 'struct', 'symtable', 'sys',
                    'syslog', 'thread', 'time', 'unicodedata', 'warnings',
                    'weakref', 'xxsubtype', 'zipimport', 'zlib']
 
+#'hashlib', 'ssl', '_hashlib''_ssl',
+
 BUILTIN_MODULES_WITH_UNDERSCORES = ['__main__', '_ast', '_bisect', '_codecs',
-                                    '_collections', '_functools', '_hashlib',
+                                    '_collections', '_functools',
                                     '_locale', '_random', '_socket', '_sre',
-                                    '_ssl', '_struct', '_symtable', '_warnings',
+                                     '_struct', '_symtable', '_warnings',
                                     '_weakref']
 
 THIRD_PARTY_MODULES = [
@@ -41,7 +51,7 @@ LOCAL_MODULES = [
     (('testfiles.subpackage', THIS_PATH),
      (utils.ensure_uncompiled_source(subpackage.__file__), True)),
 ]
-
+print(utils.ensure_uncompiled_source(subpackage.__file__))
 
 class LocatorTest(unittest.TestCase):
     def test_locate_builtin_modules(self):
