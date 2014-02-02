@@ -2,6 +2,7 @@
 # coding=utf-8
 from __future__ import division, print_function, unicode_literals
 import os
+import sys
 import unittest
 
 from locator import locate_module
@@ -37,6 +38,8 @@ def get_subpath(*filenames):
 
 RELATIVE = lambda filename: os.path.join(THIS_PATH, filename)
 
+IS_PYTHON3 = sys.version_info >= (3, 0)
+
 LOCAL_MODULES = [
     (('utils', THIS_PATH), (get_subpath('utils.py'), True)),
     (('testfiles', THIS_PATH), (get_subpath('testfiles', '__init__.py'), True)),
@@ -51,7 +54,9 @@ LOCAL_MODULES = [
     (('time', get_subpath('testfiles')), ('__builtin__', False)),
     (('unittest', get_subpath('testfiles')),
      (get_subpath('testfiles', 'unittest.py'), True)),
-
+    (('gc', get_subpath('testfiles')),
+     (get_subpath('testfiles', 'gc', '__init__.py'), True) if IS_PYTHON3 else
+     ('__builtin__', False))
 ]
 
 
