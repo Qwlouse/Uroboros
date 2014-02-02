@@ -36,24 +36,14 @@ def locate_module(module_name, path=''):
             break
 
     if found:
-        if len(modparts) == 1:
-            filename = os.path.join(current_dir, modparts[-1] + '.py')
-            if os.path.exists(filename):
-                return _postprocess_location(filename), True
+        filename = os.path.abspath(os.path.join(current_dir, modparts[-1],
+                                                '__init__.py'))
+        if os.path.exists(filename):
+            return _postprocess_location(filename), True
 
-            filename = os.path.abspath(os.path.join(current_dir, modparts[-1],
-                                                    '__init__.py'))
-            if os.path.exists(filename):
-                return _postprocess_location(filename), True
-        else:
-            filename = os.path.abspath(os.path.join(current_dir, modparts[-1],
-                                                    '__init__.py'))
-            if os.path.exists(filename):
-                return _postprocess_location(filename), True
-
-            filename = os.path.join(current_dir, modparts[-1] + '.py')
-            if os.path.exists(filename):
-                return _postprocess_location(filename), True
+        filename = os.path.join(current_dir, modparts[-1] + '.py')
+        if os.path.exists(filename):
+            return _postprocess_location(filename), True
 
 
 
