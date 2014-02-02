@@ -6,15 +6,7 @@ import unittest
 
 from locator import locate_module
 from test import utils
-from test.testfiles import simple_imports, from_imports#, subpackage
-
 #################
-import testfiles                      # testfiles/__init__.py
-#import test.testfiles as testfiles    # testfiles/__init__.py
-#from test import testfiles            # testfiles/__init__.py
-
-#import test.testfiles.subpackage as subpackage  # testfiles/subpackage/__init__.py
-from test.testfiles import subpackage            # testfiles/subpackage/__init__.py
 
 
 BUILTIN_MODULES = ['array', 'ast', 'binascii', 'bisect', 'codecs',
@@ -22,16 +14,14 @@ BUILTIN_MODULES = ['array', 'ast', 'binascii', 'bisect', 'codecs',
                    'imp', 'itertools', 'locale', 'marshal', 'math',
                    'operator', 'posix', 'pwd', 'random', 'select', 'signal',
                    'socket', 'spwd', 'sre', 'struct', 'symtable', 'sys',
-                   'syslog', 'thread', 'time', 'unicodedata', 'warnings',
+                   'syslog', 'thread', 'time', 'unicodedata',
                    'weakref', 'xxsubtype', 'zipimport', 'zlib']
 
-#'hashlib', 'ssl', '_hashlib''_ssl',
 
 BUILTIN_MODULES_WITH_UNDERSCORES = ['__main__', '_ast', '_bisect', '_codecs',
                                     '_collections', '_functools',
                                     '_locale', '_random', '_socket', '_sre',
-                                     '_struct', '_symtable', '_warnings',
-                                    '_weakref']
+                                    '_struct', '_symtable', '_weakref']
 
 THIRD_PARTY_MODULES = [
     ("unittest", utils.ensure_uncompiled_source(unittest.__file__)),
@@ -39,19 +29,23 @@ THIRD_PARTY_MODULES = [
 
 THIS_PATH = os.path.dirname(__file__)
 
+
+def get_subpath(*filenames):
+    components = [THIS_PATH]
+    components.extend(filenames)
+    return os.path.join(*components)
+
+RELATIVE = lambda filename: os.path.join(THIS_PATH, filename)
+
 LOCAL_MODULES = [
-    (('utils', THIS_PATH),
-     (utils.ensure_uncompiled_source(utils.__file__), True)),
-    (('testfiles', THIS_PATH),
-     (utils.ensure_uncompiled_source(testfiles.__file__), True)),
+    (('utils', THIS_PATH), (get_subpath('utils.py'), True)),
+    (('testfiles', THIS_PATH), (get_subpath('testfiles', '__init__.py'), True)),
     (('testfiles.simple_imports', THIS_PATH),
-     (utils.ensure_uncompiled_source(simple_imports.__file__), True)),
+     (get_subpath('testfiles', 'simple_imports.py'), True)),
     (('testfiles.from_imports', THIS_PATH),
-     (utils.ensure_uncompiled_source(from_imports.__file__), True)),
-    (('testfiles.subpackage', THIS_PATH),
-     (utils.ensure_uncompiled_source(subpackage.__file__), True)),
+     (get_subpath('testfiles', 'from_imports.py'), True)),
 ]
-print(utils.ensure_uncompiled_source(subpackage.__file__))
+
 
 class LocatorTest(unittest.TestCase):
     def test_locate_builtin_modules(self):
