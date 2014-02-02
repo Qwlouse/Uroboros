@@ -44,6 +44,10 @@ LOCAL_MODULES = [
      (get_subpath('testfiles', 'simple_imports.py'), True)),
     (('testfiles.from_imports', THIS_PATH),
      (get_subpath('testfiles', 'from_imports.py'), True)),
+    (('testfiles.conflict', THIS_PATH),
+     (get_subpath('testfiles', 'conflict', '__init__.py'), True)),
+    (('conflict', get_subpath('testfiles')),
+     (get_subpath('testfiles', 'conflict', '__init__.py'), True)),
 ]
 
 
