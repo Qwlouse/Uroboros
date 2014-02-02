@@ -48,7 +48,10 @@ LOCAL_MODULES = [
      (get_subpath('testfiles', 'conflict', '__init__.py'), True)),
     (('conflict', get_subpath('testfiles')),
      (get_subpath('testfiles', 'conflict', '__init__.py'), True)),
-    (('time', THIS_PATH), ('__builtin__', False)),
+    (('time', get_subpath('testfiles')), ('__builtin__', False)),
+    (('unittest', get_subpath('testfiles')),
+     (get_subpath('testfiles', 'unittest.py'), True)),
+
 ]
 
 
